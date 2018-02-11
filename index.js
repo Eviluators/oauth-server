@@ -16,7 +16,7 @@ passport.deserializeUser((user, done) => {
 passport.use(new GitHubStrategy({
   clientID: process.env.GITHUB_CLIENT_ID,
   clientSecret: process.env.GITHUB_CLIENT_SECRET,
-  callbackURL: "http://localhost:3030/auth/github/callback"
+  callbackURL: "https://eviluator-auth.herokuapp.com/auth/github/callback"
 },
   (accessToken, refreshToken, profile, done) => {
     process.nextTick(function () {
@@ -75,7 +75,4 @@ server.get('/logout', (req, res) => {
 
 const PORT = process.env.PORT || 3030;
 const HOST = process.env.HOST || '0.0.0.0';
-server.listen(PORT, HOST, error => {
-  if (error) return console.log(error);
-  console.log(`OAuth server listening on http://${HOST}:${PORT}`);
-});
+server.listen(PORT);
