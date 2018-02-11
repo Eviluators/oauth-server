@@ -3,6 +3,7 @@ const passport = require('passport');
 const session = require('express-session');
 const bodyParser = require('body-parser');
 const GitHubStrategy = require('passport-github2');
+const cors = require('cors');
 
 passport.serializeUser((user, done) => {
   done(null, user);
@@ -27,39 +28,49 @@ passport.use(new GitHubStrategy({
 
 const server = express();
 
+server.use(cors({
+  allowedHeaders: ['X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept'],
+  origin: ['http://localhost:3000', 'https://eviluator-client.herokuapp.com/'],
+  credentials: true
+}));
 server.use(session({ secret: 'wowsosecret', resave: false, saveUninitialized: false }));
 server.use(passport.initialize());
 server.use(passport.session());
 server.use(bodyParser.urlencoded({ extended: true }))
 server.use(bodyParser.json());
 
-const checkAuthentication = (req, res, next) => {
-  if (req.isAuthenticated()) {
-    next();
-  } else {
-    res.redirect('/')
-  }
-}
+
+
+
+
+//update this right here is the problem
+// const checkAuthentication = (req, res, next) => {
+//   if (req.isAuthenticated()) {
+//     next();
+//   } else {
+//     next();
+//     // res.redirect('/')
+//   }
+// }
 
 server.get('/', (req, res) => {
-  res.send('<a href="/auth/github">Hello! Please log in with GitHub!</a>')
+  // res.send('<a href="/auth/github">Hello! Please log in with GitHub!</a>')
 });
 
 server.get('/auth/github', passport.authenticate('github', { scope: ['user'] }));
 
 server.get('/auth/github/callback', passport.authenticate('github', { failureRedirect: '/' }), (req, res) => {
-  res.redirect('/account');
+  res.redirect('https://eviluator-client.herokuapp.com/');
 });
 
-server.get('/account', checkAuthentication, (req, res) => {
-  const user = req.user;
-  const username = user.username;
-  res.send('Hello, ' + username);
+server.get('/account', (req, res) => {
+  if (req.isAuthenticated()) return res.json({user: req.user});
+  res.json({user: null});
 });
 
 server.get('/logout', (req, res) => {
   req.logout();
-  res.redirect('/');
+  res.redirect('https://eviluator-client.herokuapp.com/');
 });
 
 const PORT = process.env.PORT || 3030;
