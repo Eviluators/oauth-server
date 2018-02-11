@@ -30,7 +30,7 @@ const server = express();
 
 server.use(cors({
   allowedHeaders: ['X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept'],
-  origin: ['http://localhost:3000', 'https://eviluator-client.herokuapp.com/'],
+  origin: ['http://localhost:3000', 'https://eviluator-client.herokuapp.com'],
   credentials: true
 }));
 server.use(session({ secret: 'wowsosecret', resave: false, saveUninitialized: false }));
