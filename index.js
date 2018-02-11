@@ -54,7 +54,7 @@ server.use(bodyParser.json());
 // }
 
 server.get('/', (req, res) => {
-  // res.send('<a href="/auth/github">Hello! Please log in with GitHub!</a>')
+  res.send('<h1>hi</h1>')''
 });
 
 server.get('/auth/github', passport.authenticate('github', { scope: ['user'] }));
