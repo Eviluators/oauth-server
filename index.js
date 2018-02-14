@@ -20,7 +20,8 @@ passport.use(
     {
       clientID: process.env.GITHUB_CLIENT_ID,
       clientSecret: process.env.GITHUB_CLIENT_SECRET,
-      callbackURL: 'https://eviluator-auth.herokuapp.com/auth/github/callback'
+      callbackURL:
+        'https://eviluators-oauth-server.herokuapp.com/auth/github/callback'
     },
     (accessToken, refreshToken, profile, done) => {
       process.nextTick(function() {
@@ -38,7 +39,10 @@ server.use(
     allowedHeaders: [
       'X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept'
     ],
-    origin: ['http://localhost:3000', 'https://eviluator-client.herokuapp.com'],
+    origin: [
+      'http://localhost:3000',
+      'https://eviluators-oauth-server.herokuapp.com'
+    ],
     credentials: true
   })
 );
@@ -89,7 +93,7 @@ server.get('/account', async (req, res) => {
 
 server.get('/logout', (req, res) => {
   req.logout();
-  res.redirect('https://eviluator-client.herokuapp.com/');
+  res.redirect('https://eviluators-oauth-server.herokuapp.com/');
 });
 
 const PORT = process.env.PORT || 3030;
