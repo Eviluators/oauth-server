@@ -79,7 +79,8 @@ server.get('/account', async (req, res) => {
   try {
     if (req.isAuthenticated()) {
       const username = req.user.username;
-      const user = await airtable.getStudentWithTestResults(username);
+      const atUser = await airtable.getStudentWithTestResults(username);
+      const user = { ...req.user, ...user };
       return res.json({ user });
     }
     res.json({ user: null });
