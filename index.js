@@ -20,7 +20,8 @@ passport.use(
     {
       clientID: process.env.GITHUB_CLIENT_ID,
       clientSecret: process.env.GITHUB_CLIENT_SECRET,
-      callbackURL: 'https://eviluator-auth.herokuapp.com/auth/github/callback'
+      callbackURL:
+        'https://eviluators-oauth-server.herokuapp.com/auth/github/callback'
     },
     (accessToken, refreshToken, profile, done) => {
       process.nextTick(function() {
