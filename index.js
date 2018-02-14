@@ -71,7 +71,7 @@ server.get(
   '/auth/github/callback',
   passport.authenticate('github', { failureRedirect: '/' }),
   (req, res) => {
-    res.redirect('https://eviluator-client.herokuapp.com/');
+    res.redirect('https://eviluators-oauth-server.herokuapp.com/');
   }
 );
 
