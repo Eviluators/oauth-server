@@ -41,7 +41,7 @@ server.use(
     ],
     origin: [
       'http://localhost:3000',
-      'https://eviluators-student-client.herokuapp.com/'
+      'https://eviluators-student-client.herokuapp.com'
     ],
     credentials: true
   })
@@ -75,7 +75,7 @@ server.get(
   '/auth/github/callback',
   passport.authenticate('github', { failureRedirect: '/' }),
   (req, res) => {
-    res.redirect('https://eviluator-student-client.herokuapp.com/');
+    res.redirect('https://eviluators-student-client.herokuapp.com/');
   }
 );
 
@@ -93,7 +93,7 @@ server.get('/account', async (req, res) => {
 
 server.get('/logout', (req, res) => {
   req.logout();
-  res.redirect('https://eviluator-student-client.herokuapp.com/');
+  res.redirect('https://eviluators-student-client.herokuapp.com/');
 });
 
 const PORT = process.env.PORT || 3030;
