@@ -69,7 +69,10 @@ server.get('/', (req, res) => {
 });
 
 //scope: ['user']
-server.get('/auth/github', passport.authenticate('github', {}));
+server.get(
+  '/auth/github',
+  passport.authenticate('github', { scope: ['user'] })
+);
 
 server.get(
   '/auth/github/callback',
