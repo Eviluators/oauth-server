@@ -1,6 +1,6 @@
 const Airtable = require('airtable');
-const apiKey = process.env.AIRTABLE_API_KEY || 'keysRGO1v32tbkj2X';
-const root = process.env.AIRTABLE_ROOT || 'appUqpw2k7cfrkkC8';
+const apiKey = process.env.AIRTABLE_API_KEY;
+const root = process.env.AIRTABLE_ROOT;
 
 const Student = new Airtable({ apiKey }).base(root)('Students');
 const Test_Result = new Airtable({ apiKey }).base(root)('Test Results');
